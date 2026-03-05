@@ -1,11 +1,11 @@
-// pages/contactPage.js
+
 import { expect } from '@playwright/test';
 
 export class ContactPage {
   constructor(page) {
     this.page = page;
 
-    // Correct locators (these exist on the site)
+    // locators 
     this.nameInput = page.locator('input#name');
     this.emailInput = page.locator('input#email');
     this.phoneInput = page.locator('input#phone');
@@ -17,8 +17,6 @@ export class ContactPage {
 
   async goto() {
     await this.page.goto('https://automationintesting.online/#contact');
-
-    // Wait for the form to appear (THIS is what worked before)
     await expect(this.nameInput).toBeVisible({ timeout: 10000 });
   }
 
@@ -42,7 +40,6 @@ export class ContactPage {
   return await locator.evaluate(el => el.validationMessage);
 }
 
-// checks if field is invalid
 async isInvalid(locator) {
   return await locator.evaluate(el => !el.checkValidity());
 }
