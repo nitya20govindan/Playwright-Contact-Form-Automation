@@ -1,4 +1,4 @@
-// tests/contact.spec.js
+
 import { test, expect } from '@playwright/test';
 import { ContactPage } from '../pages/contactPage.js';
 
@@ -18,7 +18,6 @@ test('Contact Us form: fill and submit', async ({ page }) => {
   await contactPage.expectSuccess();
 });
 
-// Negative tests
 test.describe('Negative tests', () => {
 
   test.beforeEach(async ({ page }) => {
@@ -55,30 +54,15 @@ test.describe('Negative tests', () => {
     });
 
     await contactPage.submit();
-
     const phoneInvalid = await contactPage.isInvalid(contactPage.phoneInput);
     expect(phoneInvalid).toBe(false);
   });
 
-  // test('show error when required fields are empty', async ({ page }) => {
-  //   const contactPage = new ContactPage(page);
-
-  //   // trigger validation by interacting with field
-  //   await contactPage.nameInput.click();
-  //   await contactPage.page.keyboard.press('Tab');
-
-  //   const nameInvalid = await contactPage.isInvalid(contactPage.nameInput);
-
-  //   expect(nameInvalid).toBe(true);
-  // });
   test('show error when required fields are empty', async ({ page }) => {
-  const contactPage = new ContactPage(page);
-
-  await contactPage.submit();
-
-  const errorMessage = page.locator('.alert-danger');
-
-  await expect(errorMessage).toBeVisible();
-});
+    const contactPage = new ContactPage(page);
+    await contactPage.submit();
+    const errorMessage = page.locator('.alert-danger');
+    await expect(errorMessage).toBeVisible();
+  });
 
 });
